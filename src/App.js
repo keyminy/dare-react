@@ -1,26 +1,33 @@
-import './App.css';
 import { useState } from 'react';
-import Sub from './Sub';
+import './App.css';
 
 function App() {
-  //let number = 1; //react에서 관리하는 상태값이 아님
-  
-  /*useState사용 */
-  //변수는 number로 만들어지고 값은 1대입됨
-  //이 변수의 값 변경은 setNumber를 이용해야한다.
-  const [number,setNumber] = useState(1);
-
-  const add = () => {
-   // setNumber(number++); //number++은 불가하다, 다시 number = number+1연산이므로
-    setNumber(number+1);
-    console.log('add', number);
-  };
+  /*상황 : 다운로드를 받았고
+  users데이터를 상태로 기억하고 싶다 */
+  console.log('App 실행됨');
+  const [num,setNum] = useState(5);
+  let sample = [
+    {id:1,name:'홍길동'},
+    {id:2,name:'임꺽정'},
+    {id:3,name:'장보고'},
+    {id:4,name:'강감찬'}
+  ];
+  //users를 일단 빈배열로 초기화 하였습니다.
+  const [users,setUsers] = useState(sample);
+  const download = () => {
+    //fetch()~then()의 결과object를 ...sample뒤에 넣으면됨
+    setUsers([...sample,{id:num,name:'조자룡'}]);
+    setNum(num+1);
+  }
 
   return (
     <div>
-      <h1>숫자 : {number}</h1>
-      <button onClick={add}>더하기</button>
-      <Sub/>
+      <button onClick={download}>다운로드</button>
+      {users.map((u) => (
+        <h1>
+          {u.id},{u.name}
+        </h1>
+      ))}
     </div>
   );
 }
