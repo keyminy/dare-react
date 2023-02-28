@@ -1,8 +1,6 @@
 import React from 'react';
 
-let num = 10;
-
-const Sub = () => {
+const Third = () => {
   return (
     <div>
       
@@ -10,5 +8,4 @@ const Sub = () => {
   );
 };
 
-export {num};
-export default Sub;
+export default Third;

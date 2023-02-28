@@ -1,33 +1,27 @@
-import { useState } from 'react';
 import './App.css';
+import {useEffect, useState} from 'react';
+
 
 function App() {
-  /*상황 : 다운로드를 받았고
-  users데이터를 상태로 기억하고 싶다 */
-  console.log('App 실행됨');
-  const [num,setNum] = useState(5);
-  let sample = [
-    {id:1,name:'홍길동'},
-    {id:2,name:'임꺽정'},
-    {id:3,name:'장보고'},
-    {id:4,name:'강감찬'}
-  ];
-  //users를 일단 빈배열로 초기화 하였습니다.
-  const [users,setUsers] = useState(sample);
+  const [data,setData] = useState(0);
+  const [search,setSearch] = useState(0);
+
   const download = () => {
-    //fetch()~then()의 결과object를 ...sample뒤에 넣으면됨
-    setUsers([...sample,{id:num,name:'조자룡'}]);
-    setNum(num+1);
+    //다운로드 받고(서버와 통신)
+    let downloadData = 5; //가정
+    setData(downloadData);
   }
+
+  useEffect(()=>{
+    console.log('useEffect실행됨');
+    download();
+  },[search]);
 
   return (
     <div>
-      <button onClick={download}>다운로드</button>
-      {users.map((u) => (
-        <h1>
-          {u.id},{u.name}
-        </h1>
-      ))}
+      <button onClick={()=>{setSearch(2)}}>검색하기</button>
+      <h1>데이터 : {data}</h1>
+      <button onClick={()=>{setData(data+1)}}>더하기</button>
     </div>
   );
 }
