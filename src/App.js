@@ -1,31 +1,28 @@
 import './App.css';
-import {useEffect, useMemo, useState} from 'react';
-
+import {createRef, useRef, useState} from 'react'
 
 function App() {
-  const [list,setList] = useState([1,2,3,4]);
-  const [str,setStr] = useState('합계');
-
-
-  const getAddResult = () => {
-    let sum = 0;
-    list.forEach(i => sum += i)
-    console.log('sum함수 실행됬음 : ', sum);
-    return sum;
-  }
+  const myRef = useRef(null);
   
-  const addResult = useMemo(()=>getAddResult(),[list]);
-  
+  const [list,setList] = useState([
+    {id:1,name:"홍길동"},{id:2,name:"임꺽정"}
+  ]);
+  //동적으로 Refrence생성
+  const myRefs = Array.from({length:list.length}).map(()=>createRef());
+
   return (
     <div>
-      <button onClick={()=>{setStr('안녕')}}>문자 변경</button>
-      <button onClick={()=>{setList([...list,10])}}>리스트값 추가</button>
-      <div>
-        {list.map(i => {
-          return <h1>{i}</h1>;
-        })}
-      </div>
-      <div>{str} : {addResult}</div>
+      <button onClick={()=>{
+        console.log(myRef);
+        myRef.current.style.backgroundColor = 'red';
+        //꺽정혹은 길동이 변경해보기
+        myRefs[0].current.style.backgroundColor = 'red';
+      }}>색 변경</button>
+      <div ref={myRef}>박스</div>
+      {list.map((user,index)=>(
+        //ref를동적으로 생성함
+        <h1 ref={myRefs[index]}>{user.name}</h1>
+      ))}
     </div>
   );
 }
