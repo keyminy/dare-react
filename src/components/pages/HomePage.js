@@ -6,7 +6,7 @@ import Home from '../home/Home';
 const HomePage = () => {
   //http요청(fetch)
   const [boards,setBoards] = useState([]);
-  const [number,setNumber] = useState(0);
+  const [user,setUser] = useState({});
 
   useEffect(()=>{
     /*다운로드 가정(네트워크 통신 시 Blocking발생하지만..)
@@ -18,6 +18,7 @@ const HomePage = () => {
     ];
     //다운로드 http요청이 아직 안되어 data에 빈 데이터가 들어감
     setBoards([...data]);
+    setUser({id:1,username:'cos'});
   },[]);
   return (
     <div>
@@ -25,8 +26,7 @@ const HomePage = () => {
       <Home 
         boards={boards} 
         setBoards = {setBoards}
-        number={number}
-        setNumber = {setNumber}
+        user={user}
       />
       <Footer/>
     </div>
